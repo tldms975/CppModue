@@ -3,6 +3,7 @@ CC		=	c++
 CFLAGS	=	-Wall -Wextra -Werror -std=c++98
 
 SRCS = $(addsuffix .cpp, \
+		main\
 		PhoneBook\
 		Contact)
 OBJS = $(SRCS:.cpp=.o)
