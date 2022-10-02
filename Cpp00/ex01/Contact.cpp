@@ -11,11 +11,11 @@ Contact::~Contact()
 
 void	Contact::saveInfo(std::string info[5])
 {
-	std::cin >> info[0];
-	std::cin >> info[1];
-	std::cin >> info[2];
-	std::cin >> info[3];
-	std::cin >> info[4];
+	firstName = info[0];
+	lastName = info[1];
+	nickname = info[2];
+	phoneNumber = info[3];
+	darkestSecret = info[4];
 }
 
 void	Contact::displayInfo()

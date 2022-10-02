@@ -1,5 +1,14 @@
 #include "PhoneBook.hpp"
 
+PhoneBook::PhoneBook()
+{
+	this->numOfContact = 0;
+}
+
+PhoneBook::~PhoneBook()
+{
+}
+
 void	PhoneBook::add()
 {
 	std::string info[5];
@@ -14,16 +23,18 @@ void	PhoneBook::add()
 	std::cin >> info[3];
 	std::cout << "Enter the darkest secret: ";
 	std::cin >> info[4];
-	contact->saveInfo(info);
+	contact[numOfContact % 8].saveInfo(info);
+	numOfContact++;
 }
 
 void	PhoneBook::search()
 {
 	int	inputIdx;
 
-	for (int i = 0; i < num_contact; i++)
+	for (int i = 0; i < numOfContact; i++)
 		displayContact(contact[i]);
 	std::cout << "Enter the index >> ";
+
 
 }
 
