@@ -27,15 +27,19 @@ void	PhoneBook::add()
 	numOfContact++;
 }
 
+void	PhoneBook::displayContact(Contact &contact)
+{
+	
+}
+
 void	PhoneBook::search()
 {
-	int	inputIdx;
+	std::string	input;
+	int			idx;
 
-	for (int i = 0; i < numOfContact; i++)
-		displayContact(contact[i]);
 	std::cout << "Enter the index >> ";
-
-
+	std::getline(std::cin, input);
+	displayContact(contact[idx]);
 }
 
 void	PhoneBook::exit()
