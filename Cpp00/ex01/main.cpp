@@ -10,11 +10,11 @@ int main(void)
 	{
 		std::cout << "Enter [ADD, SEARCH, EXIT]>> ";
 		std::getline(std::cin, input);
-		if (input.compare("ADD"))
+		if (input.compare("ADD") == 0)
 			phoneBook.add();
-		else if (input.compare("SEARCH"))
+		else if (input.compare("SEARCH") == 0)
 			phoneBook.search();
-		else if (input.compare("EXIT"))
+		else if (input.compare("EXIT") == 0)
 			phoneBook.exit();
 		else
 			;
