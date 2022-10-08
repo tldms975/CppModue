@@ -1,29 +1,25 @@
+CXX		= c++
+FLAGS	= -Wall -Wextra -Werror -std=c++98
 
-CC		=	c++
-CFLAGS	=	-Wall -Wextra -Werror -std=c++98
+NAME	= phonebook
 
-SRCS = $(addsuffix .cpp, \
-		main\
-		PhoneBook\
-		Contact)
-OBJS = $(SRCS:.cpp=.o)
+SRCS	= main.cpp Contact.cpp PhoneBook.cpp
+OBJS	= $(SRCS:.cpp=.o)
 
-NAME = phonebook
+all : $(NAME)
 
-all: $(NAME)
+$(NAME) : $(OBJS)
+	$(CXX) $(FLAGS) $^ -o $@
 
-%.o: $(SRCS)
-	$(CC) $(CFLAGS) -c $< -o $@
+%.o : %.cpp
+	$(CXX) $(FLAGS) -c $< -o $@
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^
-
-clean:
+clean :
 	rm -f $(OBJS)
 
-fclean: clean
+fclean : clean
 	rm -f $(NAME)
 
-re: clean all
+re : clean all
 
-.PHONY: all clean fclean re
+.PHONY : all clean fclean re

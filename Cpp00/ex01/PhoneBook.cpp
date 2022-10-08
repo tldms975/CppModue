@@ -29,13 +29,13 @@ void	PhoneBook::add()
 
 void	PhoneBook::displayContact(Contact &contact)
 {
-	
+	contact.displayInfo();
 }
 
 void	PhoneBook::search()
 {
 	std::string	input;
-	int			idx;
+	int			idx = 0;
 
 	std::cout << "Enter the index >> ";
 	std::getline(std::cin, input);
