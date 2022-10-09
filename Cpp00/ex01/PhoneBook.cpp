@@ -9,37 +9,80 @@ PhoneBook::~PhoneBook()
 {
 }
 
+std::string	PhoneBook::inputField(const std::string field)
+{
+	std::string	str;
+
+	while (true)
+	{
+		std::cout << "Enter the " << field << ": ";
+		std::cin.clear();
+		std::getline(std::cin, str);
+		if (std::cin.fail() || std::cin.eof())
+		{
+			std::cout << "Wrong Input\n";
+			std::exit(1);
+		}
+		if (str.length() == 0)
+		{
+			std::cout << "Empty input is not allowed!\n";
+			//std::cin.ignore(1, '\n');
+		}
+		else
+			break ;
+	}
+	return (str);
+}
+
 void	PhoneBook::add()
 {
 	std::string info[5];
 
-	std::cout << "Enter the first name: ";
-	std::cin >> info[0];
-	std::cout << "Enter the last name: ";
-	std::cin >> info[1];
-	std::cout << "Enter the nickname: ";
-	std::cin >> info[2];
-	std::cout << "Enter the phone number: ";
-	std::cin >> info[3];
-	std::cout << "Enter the darkest secret: ";
-	std::cin >> info[4];
+	info[0] = inputField("first name");
+	info[1] = inputField("last name");
+	info[2] = inputField("Nickname");
+	info[3] = inputField("Phone Number");
+	info[4] = inputField("Darkest Secret");
 	contact[numOfContact % 8].saveInfo(info);
 	numOfContact++;
-}
-
-void	PhoneBook::displayContact(Contact &contact)
-{
-	contact.displayInfo();
+	if (numOfContact > 8)
+		numOfContact = 8;
+	std::cout << "\nSuccessfully Added!\n\n";
 }
 
 void	PhoneBook::search()
 {
-	std::string	input;
-	int			idx = 0;
+	std::string	contour = "-------------------------------------------\n";
+	std::string	showLine = "###########################################\n";
+	int	idx = 0;
 
-	std::cout << "Enter the index >> ";
-	std::getline(std::cin, input);
-	displayContact(contact[idx]);
+	std::cout << std::setw(10) << std::right << "Index" << "|";
+	std::cout << std::setw(10) << std::right << "FirstName" << "|";
+	std::cout << std::setw(10) << std::right << "LastName" << "|";
+	std::cout << std::setw(10) << std::right << "Nickname" << "\n";
+	std::cout << contour;
+	for (int i = 0; i < numOfContact; i++)
+	{
+		contact[i].displayContacts(i);
+		std::cout << contour;
+	}
+	std::cout << "Input the index of the contact you want to see: ";
+	std::cin.clear();
+	std::cin >> idx;
+	if (std::cin.fail() || std::cin.eof())
+	{
+		std::cout << "Wrong Input\n";
+		std::exit(1);
+	}
+	if ((idx < 0 || idx > 8) || (idx >= numOfContact))
+	{
+		std::cout << "Out of Range!\n";
+		std::exit(1);
+	}
+	std::cout << "\n" << showLine;
+	contact[idx].showContact();
+	std::cout << showLine << "\n";
+	std::cin.ignore(1, '\n');
 }
 
 void	PhoneBook::exit()

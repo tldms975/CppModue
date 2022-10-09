@@ -9,14 +9,13 @@ int main(void)
 
 	while (true)
 	{
-		std::cin.clear();
 		std::cout << "Enter [ADD, SEARCH, EXIT]\n";
+		std::cin.clear();
 		std::getline(std::cin, input);
 		if (std::cin.fail() || std::cin.eof())
 		{
 			std::cout << "Wrong Input\n";
-			std::cin.ignore(LLONG_MAX, '\n');
-			continue ;
+			std::exit(1);
 		}
 		else if (input.compare("ADD") == 0)
 			phoneBook.add();
@@ -24,7 +23,5 @@ int main(void)
 			phoneBook.search();
 		else if (input.compare("EXIT") == 0)
 			phoneBook.exit();
-		else
-			;
 	}
 }

@@ -17,7 +17,9 @@ class Contact
 		Contact();
 		~Contact();
 		void	saveInfo(std::string info[5]);
-		void	displayInfo();
+		void	displayContacts(int idx);
+		void	displayField(std::string field);
+		void	showContact();
 };
 
 #endif

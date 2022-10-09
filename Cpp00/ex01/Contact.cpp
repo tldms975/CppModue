@@ -1,8 +1,8 @@
 #include "Contact.hpp"
+#include <iomanip>
 
 Contact::Contact()
 {
-	//{"", "", "", ""};
 }
 
 Contact::~Contact()
@@ -18,10 +18,33 @@ void	Contact::saveInfo(std::string info[5])
 	darkestSecret = info[4];
 }
 
-void	Contact::displayInfo()
+void	Contact::displayField(std::string field)
 {
-	std::cout << "first name: " << firstName << " |";
-	std::cout << "last name: " << lastName << " |";
-	std::cout << "nickname: " << nickname << " |";
+	std::string	s;
+
+	if (field.length() > 10)
+		s = field.substr(0, 9) + '.';
+	else
+		s = field;
+	std::cout << std::setw(10) << std::right << s;
+}
+
+void	Contact::displayContacts(int idx)
+{
+	std::cout << std::setw(10) << std::right << idx;
+	std::cout << "|";
+	displayField(firstName);
+	std::cout << "|";
+	displayField(lastName);
+	std::cout << "|";
+	displayField(nickname);
+	std::cout << "\n";
+}
+
+void	Contact::showContact()
+{
+	std::cout << "first name: " << firstName << "\n";
+	std::cout << "last name: " << lastName << "\n";
+	std::cout << "nickname: " << nickname << "\n";
 	std::cout << "phone number: " << phoneNumber << "\n";
 }
