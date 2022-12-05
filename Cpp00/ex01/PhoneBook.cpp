@@ -69,15 +69,16 @@ void	PhoneBook::search()
 	std::cout << "Input the index of the contact you want to see: ";
 	std::cin.clear();
 	std::cin >> idx;
-	if (std::cin.fail() || std::cin.eof())
+	while (std::cin.fail())
 	{
-		std::cout << "Wrong Input\n";
+		std::cout << idx << "Wrong Input. Please input the index number\n";
 		std::exit(1);
 	}
-	if ((idx < 0 || idx > 8) || (idx >= numOfContact))
+	while ((idx < 0 || idx > 8) || (idx >= numOfContact))
 	{
-		std::cout << "Out of Range!\n";
-		std::exit(1);
+		std::cout << "Out of Range! You can choose a only vaild index\n";
+		std::cin.clear();
+		std::cin >> idx;
 	}
 	std::cout << "\n" << showLine;
 	contact[idx].showContact();
