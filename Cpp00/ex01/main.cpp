@@ -14,6 +14,7 @@ int main(void)
 		std::getline(std::cin, input);
 		if (std::cin.fail() || std::cin.eof())
 		{
+			std::cin.clear();
 			std::cout << "Wrong Input\n";
 			std::exit(1);
 		}

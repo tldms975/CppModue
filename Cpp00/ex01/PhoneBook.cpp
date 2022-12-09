@@ -1,4 +1,5 @@
 #include "PhoneBook.hpp"
+#include <limits>
 
 PhoneBook::PhoneBook()
 {
@@ -16,17 +17,16 @@ std::string	PhoneBook::inputField(const std::string field)
 	while (true)
 	{
 		std::cout << "Enter the " << field << ": ";
-		std::cin.clear();
 		std::getline(std::cin, str);
-		if (std::cin.fail() || std::cin.eof())
+		if (std::cin.fail())
 		{
+			std::cin.clear();
 			std::cout << "Wrong Input\n";
-			std::exit(1);
+			std::cin.ignore(225, '\n');
 		}
-		if (str.length() == 0)
+		else if (str.length() == 0)
 		{
 			std::cout << "Empty input is not allowed!\n";
-			//std::cin.ignore(1, '\n');
 		}
 		else
 			break ;
@@ -67,23 +67,29 @@ void	PhoneBook::search()
 		std::cout << contour;
 	}
 	std::cout << "Input the index of the contact you want to see: ";
-	std::cin.clear();
 	std::cin >> idx;
-	while (std::cin.fail())
+	if (std::cin.fail())
 	{
-		std::cout << idx << "Wrong Input. Please input the index number\n";
-		std::exit(1);
+		std::cin.clear();
+		std::cout << "Wrong Input. Please input the index number\n";
+		std::cin.ignore(225, '\n');
+		PhoneBook::search();
+		return ;
 	}
-	while ((idx < 0 || idx > 8) || (idx >= numOfContact))
+	else if ((idx < 0 || idx > 8) || (idx >= numOfContact))
 	{
 		std::cout << "Out of Range! You can choose a only vaild index\n";
 		std::cin.clear();
-		std::cin >> idx;
+		PhoneBook::search();
+		return ;
 	}
-	std::cout << "\n" << showLine;
-	contact[idx].showContact();
-	std::cout << showLine << "\n";
-	std::cin.ignore(1, '\n');
+	else
+	{
+		std::cout << "\n" << showLine;
+		contact[idx].showContact();
+		std::cout << showLine << "\n";
+		return ;
+	}
 }
 
 void	PhoneBook::exit()
