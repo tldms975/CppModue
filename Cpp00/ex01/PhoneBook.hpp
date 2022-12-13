@@ -12,10 +12,10 @@ class PhoneBook
 	public:
 		PhoneBook();
 		~PhoneBook();
-		void		add();
-		void		search();
-		void		exit();
-		std::string	inputField(std::string field);
+		void			add();
+		void			search();
+		void			exit();
+		std::string		inputField(std::string field, bool &flag);
 };
 
 #endif

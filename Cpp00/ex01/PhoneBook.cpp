@@ -10,51 +10,60 @@ PhoneBook::~PhoneBook()
 {
 }
 
-std::string	PhoneBook::inputField(const std::string field)
+std::string	PhoneBook::inputField(std::string field, bool &flag)
 {
 	std::string	str;
 
 	while (true)
 	{
-		std::cout << "Enter the " << field << ": ";
+		std::cout << field << ": ";
 		std::getline(std::cin, str);
 		if (std::cin.fail())
 		{
 			std::cin.clear();
-			std::cout << "Wrong Input\n";
-			std::cin.ignore(225, '\n');
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "Wrong Input" << std::endl;
+			flag = 1;
+			return (str);
 		}
-		else if (str.length() == 0)
-		{
-			std::cout << "Empty input is not allowed!\n";
-		}
+		else if (str.empty())
+			std::cout << "Empty input is not allowed.\n";
 		else
-			break ;
+			return (str);
 	}
-	return (str);
 }
 
 void	PhoneBook::add()
 {
-	std::string info[5];
+	std::string	info[5];
+	std::string	field[5] = \
+	{"First name", "Last name", "Nickname", "Phone Number", "Darkest Secret"};
+	bool		flag = 0;
 
-	info[0] = inputField("first name");
-	info[1] = inputField("last name");
-	info[2] = inputField("Nickname");
-	info[3] = inputField("Phone Number");
-	info[4] = inputField("Darkest Secret");
+	for (int i = 0; i < 5; i++)
+	{
+		if (flag == 0)
+			info[i] = inputField(field[i], flag);
+		else
+		{
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+			return ;
+		}
+	}
 	contact[numOfContact % 8].saveInfo(info);
 	numOfContact++;
 	if (numOfContact > 8)
 		numOfContact = 8;
 	std::cout << "\nSuccessfully Added!\n\n";
+	return ;
 }
 
 void	PhoneBook::search()
 {
 	std::string	contour = "-------------------------------------------\n";
 	std::string	showLine = "###########################################\n";
-	int	idx = 0;
+	int	idx = -1;
 
 	std::cout << std::setw(10) << std::right << "Index" << "|";
 	std::cout << std::setw(10) << std::right << "FirstName" << "|";
@@ -68,19 +77,17 @@ void	PhoneBook::search()
 	}
 	std::cout << "Input the index of the contact you want to see: ";
 	std::cin >> idx;
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	if (std::cin.fail())
 	{
 		std::cin.clear();
-		std::cout << "Wrong Input. Please input the index number\n";
-		std::cin.ignore(225, '\n');
-		PhoneBook::search();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // or you'll get 2 outputs
+		std::cout << "Please input the NUMBER\n\n";
 		return ;
 	}
-	else if ((idx < 0 || idx > 8) || (idx >= numOfContact))
+	if ((idx < 0 || idx > 8) || (idx >= numOfContact))
 	{
-		std::cout << "Out of Range! You can choose a only vaild index\n";
-		std::cin.clear();
-		PhoneBook::search();
+		std::cout << "Out of Range: You can choose only a valid index\n";
 		return ;
 	}
 	else
@@ -94,5 +101,6 @@ void	PhoneBook::search()
 
 void	PhoneBook::exit()
 {
+	std::cout << "Bye" << std::endl;
 	std::exit(0);
 }

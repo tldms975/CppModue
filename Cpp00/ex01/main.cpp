@@ -1,6 +1,8 @@
 #include "PhoneBook.hpp"
 #include <iostream>
 #include <string>
+#include <limits>
+
 
 int main(void)
 {
@@ -9,13 +11,20 @@ int main(void)
 
 	while (true)
 	{
-		std::cout << "Enter [ADD, SEARCH, EXIT]\n";
-		std::cin.clear();
-		std::getline(std::cin, input);
-		if (std::cin.fail() || std::cin.eof())
+		if (std::cin.fail())
 		{
 			std::cin.clear();
-			std::cout << "Wrong Input\n";
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "Wrong Input" << std::endl;
+			std::exit(1);
+		}
+		std::cout << "Enter [ADD, SEARCH, EXIT]\n";
+		std::getline(std::cin, input);
+		if (std::cin.fail())
+		{
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "Wrong Input" << std::endl;
 			std::exit(1);
 		}
 		else if (input.compare("ADD") == 0)
@@ -24,5 +33,14 @@ int main(void)
 			phoneBook.search();
 		else if (input.compare("EXIT") == 0)
 			phoneBook.exit();
+		else
+			std::cout << "Try again\n";
+		if (std::cin.fail())
+		{
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "Wrong Input" << std::endl;
+			std::exit(1);
+		}
 	}
 }
