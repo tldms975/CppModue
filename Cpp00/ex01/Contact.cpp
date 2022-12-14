@@ -12,11 +12,11 @@ Contact::~Contact()
 
 void	Contact::saveInfo(std::string info[5])
 {
-	firstName = info[0];
-	lastName = info[1];
-	nickname = info[2];
-	phoneNumber = info[3];
-	darkestSecret = info[4];
+	this->firstName = info[0];
+	this->lastName = info[1];
+	this->nickname = info[2];
+	this->phoneNumber = info[3];
+	this->darkestSecret = info[4];
 }
 
 void	Contact::displayField(std::string field)

@@ -47,7 +47,6 @@ void	PhoneBook::add()
 		else
 		{
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
 			return ;
 		}
 	}
@@ -75,11 +74,13 @@ void	PhoneBook::search()
 		contact[i].displayContacts(i);
 		std::cout << contour;
 	}
-	std::cout << "Input the index of the contact you want to see: ";
+	std::cout << "Input the index: ";
 	std::cin >> idx;
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	if (std::cin.fail())
 	{
+		if (std::cin.eof())
+			return ;
 		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // or you'll get 2 outputs
 		std::cout << "Please input the NUMBER\n\n";
@@ -87,7 +88,7 @@ void	PhoneBook::search()
 	}
 	if ((idx < 0 || idx > 8) || (idx >= numOfContact))
 	{
-		std::cout << "Out of Range: You can choose only a valid index\n";
+		std::cout << "Out of Range\n";
 		return ;
 	}
 	else
