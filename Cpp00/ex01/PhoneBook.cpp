@@ -4,6 +4,7 @@
 PhoneBook::PhoneBook()
 {
 	this->numOfContact = 0;
+	this->idx = 0;
 }
 
 PhoneBook::~PhoneBook()
@@ -50,8 +51,11 @@ void	PhoneBook::add()
 			return ;
 		}
 	}
-	contact[numOfContact % 8].saveInfo(info);
+	contact[idx % 8].saveInfo(info);
 	numOfContact++;
+	idx++;
+	if (idx > 7)
+		idx = 0;
 	if (numOfContact > 8)
 		numOfContact = 8;
 	std::cout << "\nSuccessfully Added!\n\n";

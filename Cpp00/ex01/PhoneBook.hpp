@@ -9,6 +9,7 @@ class PhoneBook
 	private:
 		Contact	contact[8];
 		int		numOfContact;
+		int		idx;
 	public:
 		PhoneBook();
 		~PhoneBook();
