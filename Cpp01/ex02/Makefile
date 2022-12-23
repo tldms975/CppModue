@@ -1,8 +1,8 @@
 CXX		= c++
 FLAGS	= -Wall -Wextra -Werror -std=c++98
-NAME	= ex00.exe
+NAME	= ex02.exe
 
-SRCS	= main.cpp Zombie.cpp newZombie.cpp randomChump.cpp
+SRCS	= main.cpp
 OBJS	= $(SRCS:.cpp=.o)
 
 all : $(NAME)
