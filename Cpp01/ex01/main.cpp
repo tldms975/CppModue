@@ -2,14 +2,7 @@
 
 int	main(void)
 {
-	Zombie	stack = Zombie("stack");
-	Zombie *heap = new Zombie("heap");
-	Zombie *newone = newZombie("newZombie");
+	Zombie	*horde = zombieHorde(3, "sielee");
 
-	stack.announce();
-	heap->announce();
-	newone->announce();
-	randomChump("randomChump");
-	delete newone;
-	delete heap;
+	delete[] horde;
 }

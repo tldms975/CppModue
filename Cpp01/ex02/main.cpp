@@ -1,15 +1,19 @@
-#include "Zombie.hpp"
+#include <iostream>
+#include <string>
 
 int	main(void)
 {
-	Zombie	stack = Zombie("stack");
-	Zombie *heap = new Zombie("heap");
-	Zombie *newone = newZombie("newZombie");
+	std::string	str = "HI THIS IS BARIN";
+	std::string *stringPTR = &str;
+	std::string &stringREF = str;
 
-	stack.announce();
-	heap->announce();
-	newone->announce();
-	randomChump("randomChump");
-	delete newone;
-	delete heap;
+	std::cout << "[memory]\n";
+	std::cout << "str: " << &str << "\n";
+	std::cout << "stringPTR: " << stringPTR << "\n";
+	std::cout << "stringREF: " << &stringREF << "\n";
+	
+	std::cout << "\n[value]\n";
+	std::cout << "str: " << str << "\n";
+	std::cout << "stringPTR: " << *stringPTR << "\n";
+	std::cout << "stringREF: " << stringREF << "\n";
 }
