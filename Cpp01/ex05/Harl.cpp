@@ -38,7 +38,7 @@ void	Harl::complain(std::string level)
 
 	for (int i = 0; i < 4; i++)
 	{
-		if (levelArr[i].compare(level) == 0)
+		if (levelArr[i] == level)
 		{
 			(this->*f[i])();
 			break ;
