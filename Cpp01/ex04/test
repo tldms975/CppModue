@@ -1,7 +1,22 @@
-1234
-1234
-1234
-1234
-asdfasdf
-asdfasdf
-qergfsd
+The basic_istream::sentry constructor, executed at the beginning of every input function, if either eofbit or badbit is already set on the stream, or if the end of stream is encountered while consuming leading whitespace.
+The basic_ostream::sentry constructor, executed at the beginning of every output function, under implementation-defined conditions.
+operator>>(std::basic_string<>) if the function extracts no characters from the input stream.
+operator>>(std::complex<>) if the function fails to extract a valid complex number.
+The character array and single character overloads of operator>> if they fail to extract any characters.
+The streambuf overload of basic_istream::operator>> if the streambuf argument is a null pointer or if no characters were inserted into the streambuf.
+The streambuf overload of basic_ostream::operator<< if the function inserts no characters.
+operator>>(std::bitset<>) if the function extracts no characters from the input stream.
+std::getline if the function extracts no characters or if it manages to extract basic_string::max_size characters from the input stream.
+The numeric, pointer, and boolean input overloads of basic_istream::operator>> (technically, the overloads of num_get::get they call), if the input cannot be parsed as a valid value or if the value parsed does not fit in the destination type.
+The time input manipulator std::get_time (technically, time_get::get it calls), if the input cannot be unambiguously parsed as a time value according to the given format string.
+The currency input manipulator std::get_money (technically, money_get::get it calls), if the input cannot be unambiguously parsed as a monetary value according to the locale rules.
+The extraction operators of all RandomNumberEngines, if bad input is encountered.
+The extraction operators of all RandomNumberDistributions, if bad input is encountered.
+The unformatted input functions basic_istream::get if they fails to extract any characters.
+basic_istream::getline, if it extracts no characters, if it fills in the provided buffer without encountering the delimiter, or if the provided buffer size is less than 1.
+basic_istream::read, if the end-of-file condition occurs on the input stream before all requested characters could be extracted.
+basic_istream::seekg on failure
+basic_ostream::tellp on failure
+The constructors of std::basic_fstream, std::basic_ifstream, and std::basic_ofstream that takes a filename argument, if the file cannot be opened.
+basic_fstream::open, basic_ifstream::open, and basic_ofstream::open if the file cannot be opened.
+basic_fstream::close, basic_ifstream::close, and basic_ofstream::close if the file cannot be closed.

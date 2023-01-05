@@ -21,6 +21,7 @@ clean :
 fclean :
 	rm -f $(OBJS)
 	rm -f $(NAME)
+	rm -f $(ASSETS)
 
 re : clean all
 
