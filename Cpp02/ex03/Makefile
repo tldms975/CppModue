@@ -1,8 +1,8 @@
 CXX		 = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD
-NAME	 = ex00.exe
+NAME	 = ex03.exe
 
-SRCS	= main.cpp ClapTrap.cpp
+SRCS	= main.cpp Fixed.cpp Point.cpp bsp.cpp
 OBJS	= $(SRCS:.cpp=.o)
 DEPS	= $(SRCS:.cpp=.d)
 
