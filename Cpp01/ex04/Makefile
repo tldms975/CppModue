@@ -5,6 +5,7 @@ NAME	 = ex04.exe
 SRCS	= main.cpp
 OBJS	= $(SRCS:.cpp=.o)
 DEPS	= $(SRCS:.cpp=.d)
+ASSETS	= *.replace
 
 all : $(NAME)
 
@@ -15,7 +16,7 @@ $(NAME) : $(OBJS)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean :
-	$(RM) $(OBJS) $(DEPS)
+	$(RM) $(OBJS) $(DEPS) $(ASSETS)
 
 fclean : clean
 	$(RM) $(NAME)
