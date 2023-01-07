@@ -4,7 +4,7 @@
 
 int main	(void)
 {
-	Point	a(0, 0), b(10, 0), c(0,10);
+	Point	a(0, 0), b(5, 0), c(0,5);
 	Point	spot(1, 1);
 
 	if (bsp(a, b, c, spot))

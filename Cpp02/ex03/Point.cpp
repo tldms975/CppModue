@@ -13,8 +13,8 @@ Point::Point(const float x, const float y)
 }
 
 Point::Point(const Point& point)
+: _x(point.getX()), _y(point.getY())
 {
-	*this = point;
 }
 
 Point::~Point()
@@ -24,5 +24,17 @@ Point::~Point()
 
 Point& Point::operator=(const Point& point)
 {
+	(void)point;
+	std::cout << "Can't assign a point\n";
+	return (*this);
+}
 
+Fixed const& Point::getX(void) const
+{
+	return (this->_x);
+}
+
+Fixed const& Point::getY(void) const
+{
+	return (this->_y);
 }
