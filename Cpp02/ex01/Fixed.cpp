@@ -20,12 +20,12 @@ Fixed::~Fixed(void)
 
 int Fixed::getRawBits(void) const
 {
-	std::cout << "getRawBits member function called\n";
 	return (this->_value);
 }
 
 Fixed& Fixed::operator=(const Fixed& f)
 {
+	std::cout << "Copy assignment operator called\n";
 	this->_value = f.getRawBits();
 	return (*this);
 }
