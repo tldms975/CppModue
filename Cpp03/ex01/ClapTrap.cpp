@@ -4,18 +4,18 @@
 ClapTrap::ClapTrap(void)
 {
 	this->_name = "???";
-	this->_hitPoints = 10;
-	this->_energyPoints = 10;
-	this->_attackDamage = 0;
+	this->_hitPoints = 100;
+	this->_energyPoints = 50;
+	this->_attackDamage = 20;
 	std::cout << "Default Constructor called\n";
 }
 
 ClapTrap::ClapTrap(std::string name)
 {
 	this->_name = name;
-	this->_hitPoints = 10;
-	this->_energyPoints = 10;
-	this->_attackDamage = 0;
+	this->_hitPoints = 100;
+	this->_energyPoints = 50;
+	this->_attackDamage = 20;
 	std::cout << "ClapTrap " << this->_name << " created\n";
 }
 
