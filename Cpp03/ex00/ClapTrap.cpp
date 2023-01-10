@@ -21,6 +21,7 @@ ClapTrap::ClapTrap(std::string name)
 
 ClapTrap::ClapTrap(const ClapTrap& c)
 {
+	std::cout << "ClapTrap " << this->_name << " Constructor called\n\n";
 	*this = c;
 }
 
