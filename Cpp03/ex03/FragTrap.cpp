@@ -63,7 +63,7 @@ void	FragTrap::takeDamage(unsigned int amount)
 
 void	FragTrap::beRepaired(unsigned int amount)
 {
-	if (this->_hitPoints <= 0 || this->_energyPoints <= 0)
+	if (this->_hitPoints > 0 && this->_energyPoints > 0)
 	{
 		std::cout << "FragTrap " << this->_name << " gained " << amount << \
 		" points!\n";
