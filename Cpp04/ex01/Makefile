@@ -1,8 +1,8 @@
 CXX		 = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD# -g -fsanitize=address
 NAME	 = ex01.exe
 
-SRCS	= main.cpp Animal.cpp
+SRCS	= main.cpp Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp Brain.cpp
 OBJS	= $(SRCS:.cpp=.o)
 DEPS	= $(SRCS:.cpp=.d)
 
