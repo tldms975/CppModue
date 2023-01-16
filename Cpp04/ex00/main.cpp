@@ -26,6 +26,7 @@ int	main()
 		delete wrong;
 	}
 	{
+		Animal a;
 		Cat c1;
 		Cat c2(c1);
 		if (&c1 == &c2)

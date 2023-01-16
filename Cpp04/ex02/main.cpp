@@ -3,7 +3,7 @@
 #include "Cat.hpp"
 #include <iostream>
 
-#define NUM_OF_ANIMAL 2
+#define NUM_OF_ANIMAL 8
 
 int	main()
 {
