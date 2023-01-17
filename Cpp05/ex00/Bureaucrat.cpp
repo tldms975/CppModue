@@ -4,8 +4,20 @@ Bureaucrat::Bureaucrat() : _name("default"), _grade(150)
 {
 }
 
-Bureaucrat::Bureaucrat(Bureaucrat const & src) : _name(src._name), _grade(src._grade)
+Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name), _grade(grade)
 {
+	if (_grade < 1)
+		throw Bureaucrat::GradeTooHighException();
+	else if (_grade > 150)
+		throw Bureaucrat::GradeTooLowException();
+}
+
+Bureaucrat::Bureaucrat(Bureaucrat const & o) : _name(o._name), _grade(o._grade)
+{
+	if (_grade < 1)
+		throw Bureaucrat::GradeTooHighException();
+	else if (_grade > 150)
+		throw Bureaucrat::GradeTooLowException();
 }
 
 Bureaucrat::~Bureaucrat()
@@ -34,10 +46,18 @@ int Bureaucrat::getGrade() const
 	return _grade;
 }
 
-Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name), _grade(grade)
+void Bureaucrat::incrementGrade()
 {
-	if (_grade < 1)
+	if (_grade - 1 < 1)
 		throw Bureaucrat::GradeTooHighException();
-	else if (_grade > 150)
+	else
+		_grade--;
+}
+
+void Bureaucrat::decrementGrade()
+{
+	if (_grade + 1 > 150)
 		throw Bureaucrat::GradeTooLowException();
+	else
+		_grade++;
 }
