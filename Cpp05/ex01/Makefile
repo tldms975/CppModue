@@ -1,12 +1,12 @@
 CXX		 = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 DEPFLAGS = -MMD# -g -fsanitize=address
-NAME	 = ex00.exe
+NAME	 = ex01.exe
 DIR_SRC = src
 DIR_INC = inc
 DIR_BUILD = build
 
-SRCS_ORG = main.cpp Bureaucrat.cpp
+SRCS_ORG = main.cpp Form.cpp Bureaucrat.cpp
 SRCS	= $(addprefix $(DIR_SRC)/, $(SRCS_ORG))
 OBJS	= $(patsubst %.cpp, $(DIR_BUILD)/%.o, $(SRCS_ORG))
 DEPS	= $(patsubst %.cpp, $(DIR_BUILD)/%.d, $(SRCS_ORG))

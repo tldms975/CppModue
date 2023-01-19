@@ -2,3 +2,5 @@
 **/*.d
 **/*.exe
 ../.vscode/
+**/build/
+**/*shrubbery

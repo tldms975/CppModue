@@ -1,15 +1,17 @@
 CXX		 = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 DEPFLAGS = -MMD# -g -fsanitize=address
-NAME	 = ex00.exe
+NAME	 = ex02.exe
 DIR_SRC = src
 DIR_INC = inc
 DIR_BUILD = build
 
-SRCS_ORG = main.cpp Bureaucrat.cpp
+SRCS_ORG = main.cpp Form.cpp Bureaucrat.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
 SRCS	= $(addprefix $(DIR_SRC)/, $(SRCS_ORG))
 OBJS	= $(patsubst %.cpp, $(DIR_BUILD)/%.o, $(SRCS_ORG))
 DEPS	= $(patsubst %.cpp, $(DIR_BUILD)/%.d, $(SRCS_ORG))
+
+SHRUBBERY = *shrubbery
 
 all : $(NAME)
 
@@ -21,7 +23,7 @@ $(DIR_BUILD)/%.o : $(DIR_SRC)/%.cpp
 	$(CXX) $(CXXFLAGS) $(DEPFLAGS) -I $(DIR_INC) -c $< -o $@
 
 clean :
-	$(RM) -rf $(DIR_BUILD)
+	$(RM) -rf $(DIR_BUILD) $(SHRUBBERY)
 
 fclean : clean
 	$(RM) $(NAME)

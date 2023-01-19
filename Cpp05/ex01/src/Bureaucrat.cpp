@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 Bureaucrat::Bureaucrat() : _name("default"), _grade(150)
 {
@@ -26,6 +27,7 @@ Bureaucrat::~Bureaucrat()
 
 Bureaucrat & Bureaucrat::operator=(Bureaucrat const & rhs)
 {
+	std::cout << "Assignation operator called But can't function exactly for constant name" << std::endl;
 	_grade = rhs._grade;
 	return *this;
 }
@@ -60,4 +62,28 @@ void Bureaucrat::decrementGrade()
 		throw Bureaucrat::GradeTooLowException();
 	else
 		_grade++;
+}
+
+const char* Bureaucrat::GradeTooHighException::what() const throw()
+{
+	return "Grade too high";
+}
+
+const char* Bureaucrat::GradeTooLowException::what() const throw()
+{
+	return "Grade too low";
+}
+
+void Bureaucrat::signForm(Form & form)
+{
+	try
+	{
+		form.beSigned(*this);
+		std::cout << this->_name << " signed " << form.getName() << std::endl;
+	}
+	catch (std::exception & e)
+	{
+		std::cout << this->_name << " couldn't sign " << form.getName()\
+		 << " because " << e.what() << std::endl;
+	}
 }
