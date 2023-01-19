@@ -20,6 +20,8 @@ PresidentialPardonForm::~PresidentialPardonForm()
 
 PresidentialPardonForm & PresidentialPardonForm::operator=(PresidentialPardonForm const & o)
 {
+	if (this == &o)
+		return (*this);
 	_target = o._target;
 	return *this;
 }

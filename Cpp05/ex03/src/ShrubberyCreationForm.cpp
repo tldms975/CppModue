@@ -21,6 +21,8 @@ ShrubberyCreationForm::~ShrubberyCreationForm()
 
 ShrubberyCreationForm & ShrubberyCreationForm::operator=(ShrubberyCreationForm const & o)
 {
+	if (this == &o)
+		return (*this);
 	_target = o._target;
 	return *this;
 }

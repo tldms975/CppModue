@@ -25,10 +25,12 @@ Bureaucrat::~Bureaucrat()
 {
 }
 
-Bureaucrat & Bureaucrat::operator=(Bureaucrat const & rhs)
+Bureaucrat & Bureaucrat::operator=(Bureaucrat const & o)
 {
+	if (this == &o)
+		return (*this);
 	std::cout << "Assignation operator called But can't function exactly for constant name" << std::endl;
-	_grade = rhs._grade;
+	_grade = o._grade;
 	return *this;
 }
 

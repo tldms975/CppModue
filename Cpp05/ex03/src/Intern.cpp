@@ -20,8 +20,9 @@ Intern::~Intern()
 
 Intern & Intern::operator=(Intern const & o)
 {
-	(void)o;
 	std::cout << "Intern operator= called But can't do anything\n";
+	if (this == &o)
+		return (*this);
 	return *this;
 }
 

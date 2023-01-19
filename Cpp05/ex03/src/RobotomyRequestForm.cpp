@@ -20,6 +20,8 @@ RobotomyRequestForm::~RobotomyRequestForm()
 
 RobotomyRequestForm & RobotomyRequestForm::operator=(RobotomyRequestForm const & o)
 {
+	if (this == &o)
+		return (*this);
 	_target = o._target;
 	return *this;
 }

@@ -28,6 +28,8 @@ Form::~Form()
 Form & Form::operator=(Form const & o)
 {
 	std::cout << "Form assignation operator called But can't function exactly for constant var\n";
+	if (this == &o)
+		return (*this);
 	_signed = o._signed;
 	return *this;
 }
