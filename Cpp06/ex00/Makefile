@@ -6,7 +6,7 @@ DIR_SRC = src
 DIR_INC = inc
 DIR_BUILD = build
 
-SRCS_ORG = main.cpp
+SRCS_ORG = main.cpp Convert.cpp
 SRCS	= $(addprefix $(DIR_SRC)/, $(SRCS_ORG))
 OBJS	= $(patsubst %.cpp, $(DIR_BUILD)/%.o, $(SRCS_ORG))
 DEPS	= $(patsubst %.cpp, $(DIR_BUILD)/%.d, $(SRCS_ORG))

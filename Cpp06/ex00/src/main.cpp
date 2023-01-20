@@ -3,20 +3,10 @@
 
 int main(int ac, char *av[])
 {
-
-	try
+	if (ac != 2)
 	{
-		
-		Convert convert(av[1]);
-		
+		std::cout << "Usage: ./ex00 [value]\n";
+		return (1);
 	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
-	
-
-
-
 	return (0);
 }
