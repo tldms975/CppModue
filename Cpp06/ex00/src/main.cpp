@@ -8,5 +8,7 @@ int main(int ac, char *av[])
 		std::cout << "Usage: ./ex00 [value]\n";
 		return (1);
 	}
+	Convert c(av[1]);
+	std::cout << c;
 	return (0);
 }

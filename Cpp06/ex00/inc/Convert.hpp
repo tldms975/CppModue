@@ -2,15 +2,14 @@
 #define CONVERT_HPP
 #include <string>
 #include <exception>
+#include <iostream>
 
 class Convert
 {
 	private:
-		std::string	_input;
-		char		_c;
-		int			_i;
-		float		_f;
+		std::string	_str;
 		double		_d;
+		char		*_endptr;
 		Convert();
 	public:
 		Convert(std::string input);
@@ -18,7 +17,9 @@ class Convert
 		~Convert();
 		Convert & operator=(Convert const & o);
 
-		void	setInput(std::string input);
+		static bool ft_isinf(double d);
+		static bool ft_isnan(double d);
+		static bool ft_isdemical(double d);
 
 		char	toChar();
 		int		toInt();
@@ -29,7 +30,6 @@ class Convert
 		void	printInt();
 		void	printFloat();
 		void	printDouble();
-		void	printAll();
 
 		class NonDisplayableException : public std::exception
 		{
@@ -42,19 +42,8 @@ class Convert
 			public:
 				const char* what() const throw();
 		};
-
-		class NotANumberException : public std::exception
-		{
-			public:
-				const char* what() const throw();
-		};
-
-		class InfinityException : public std::exception
-		{
-			public:
-				const char* what() const throw();
-		};
-
 };
+
+std::ostream& operator<<(std::ostream &o, Convert &convert);
 
 #endif

@@ -2,26 +2,22 @@
 #include <iostream>
 #include <cmath>
 #include <iomanip>
+#include <cctype>
+#include <limits>
 
 Convert::Convert()
 {
 }
 
 Convert::Convert(std::string input)
-: _input(input)
+: _str(input) ,_d(0), _endptr(0)
 {
-	// this->_c = toChar();
-	// this->_i = toInt();
-	// this->_f = toFloat();
-	// this->_d = toDouble();
+	_d = std::strtod(_str.c_str(), &_endptr);
 }
 
 Convert::Convert(Convert const & o)
 {
-	this->_input = o._input;
-	this->_c = o._c;
-	this->_i = o._i;
-	this->_f = o._d;
+	this->_str = o._str;
 	this->_d = o._d;
 }
 
@@ -33,105 +29,107 @@ Convert & Convert::operator=(Convert const & o)
 {
 	if (this == &o)
 		return (*this);
-	this->_input = o._input;
-	this->_c = o._c;
-	this->_i = o._i;
-	this->_f = o._d;
+	this->_str = o._str;
 	this->_d = o._d;
 	return *this;
 }
 
-void	Convert::setInput(std::string input)
+//static
+bool Convert::ft_isinf(double d)
 {
-	this->_input = input;
+	return (d != 0 && d == d / 2);
+}
+
+bool Convert::ft_isnan(double d)
+{
+	return (d != d);
+}
+
+bool Convert::ft_isdemical(double d) //true -> 소수 false->정수
+{
+	return (d - static_cast<int>(d) != 0);
 }
 
 //convert
 char	Convert::toChar()
 {
-	if (this->_input.length() == 1 && !isdigit(this->_input[0]))
-		return (this->_input[0]);
-	else if (this->_input.length() == 1 && isdigit(this->_input[0]))
-		throw NonDisplayableException();
-	else if (this->_input.length() > 1 && !isdigit(this->_input[0]))
-		throw ImpossibleException();
-	else if (this->_input.length() > 1 && isdigit(this->_input[0]))
+	if (this->_str.length() == 1)
 	{
-		int i = std::stoi(this->_input);
-		if (i < 0 || i > 127)
-			throw NonDisplayableException();
+		if (!std::isdigit(this->_str[0]))
+			return (this->_str[0]);
 		else
-			return (static_cast<char>(i));
+			throw Convert::NonDisplayableException();
 	}
-	return (0);
+	if (ft_isdemical(this->_d) || std::isprint(this->_d) == 0)
+		throw Convert::NonDisplayableException();
+	if (!this->_str.length() \
+	|| (*this->_endptr && strcmp(this->_endptr, "f")) \
+	|| this->_d < 1 || this->_d > 127 \
+	|| ft_isnan(this->_d) || ft_isinf(this->_d))
+		throw Convert::ImpossibleException();
+	return static_cast<char>(this->_d);
 }
 
 int		Convert::toInt()
 {
-	if (this->_input.length() == 1 && !isdigit(this->_input[0]))
-		throw Convert::NonDisplayableException();
-	else if (this->_input.length() == 1 && isdigit(this->_input[0]))
-		return (std::stoi(this->_input));
-	else if (this->_input.length() > 1 && !isdigit(this->_input[0]))
-		throw Convert::ImpossibleException();
-	else if (this->_input.length() > 1 && isdigit(this->_input[0]))
+	if (this->_str.length() == 1)
 	{
-		int i = std::stoi(this->_input);
-		if (i < 0 || i > 127)
-			throw Convert::NonDisplayableException();
+		if (std::isdigit(this->_str[0]))
+			return (static_cast<int>(this->_d));
 		else
-			return (i);
+			return (static_cast<int>(this->_str[0]));
 	}
-	return (0);
+	if (!this->_str.length() || (*this->_endptr && strcmp(this->_endptr, "f")) \
+	|| this->_d > std::numeric_limits<int>::max() \
+	|| this->_d < std::numeric_limits<int>::min() \
+	|| ft_isnan(this->_d) || ft_isinf(this->_d))
+		throw Convert::ImpossibleException();
+	return static_cast<int>(this->_d);
 }
 
 float	Convert::toFloat()
 {
-	if (this->_input.length() == 1 && !isdigit(this->_input[0]))
-		throw std::exception();
-	else if (this->_input.length() == 1 && isdigit(this->_input[0]))
-		return (std::stof(this->_input));
-	else if (this->_input.length() > 1 && !isdigit(this->_input[0]))
-		throw std::exception();
-	else if (this->_input.length() > 1 && isdigit(this->_input[0]))
+	if (this->_str.length() == 1)
 	{
-		int i = std::stoi(this->_input);
-		if (i < 0 || i > 127)
-			throw std::exception();
+		if (std::isdigit(this->_str[0]))
+			return (static_cast<float>(this->_d));
 		else
-			return (static_cast<float>(i));
+			return (static_cast<float>(this->_str[0]));
 	}
-	return (0);
+	if (!this->_str.length() \
+	|| (*this->_endptr && strcmp(this->_endptr, "f")) \
+	|| this->_d > std::numeric_limits<float>::max() \
+	|| this->_d < std::numeric_limits<float>::lowest())
+		throw Convert::ImpossibleException();
+	return static_cast<float>(this->_d);
 }
 
 double	Convert::toDouble()
 {
-	if (this->_input.length() == 1 && !isdigit(this->_input[0]))
-		throw std::exception();
-	else if (this->_input.length() == 1 && isdigit(this->_input[0]))
-		return (std::stod(this->_input));
-	else if (this->_input.length() > 1 && !isdigit(this->_input[0]))
-		throw std::exception();
-	else if (this->_input.length() > 1 && isdigit(this->_input[0]))
+	if (this->_str.length() == 1)
 	{
-		int i = std::stoi(this->_input);
-		if (i < 0 || i > 127)
-			throw std::exception();
+		if (std::isdigit(this->_str[0]))
+			return (this->_d);
 		else
-			return (static_cast<double>(i));
+			return (static_cast<double>(this->_str[0]));
 	}
-	return (0);
+	if (!this->_str.length() || (*this->_endptr && strcmp(this->_endptr, "f")) \
+	|| this->_d > std::numeric_limits<double>::max() \
+	|| this->_d < std::numeric_limits<double>::lowest())
+		throw Convert::ImpossibleException();
+	return (this->_d);
 }
 
 
 //print
 void Convert::printChar()
 {
-	std::cout << "char: ";
+	char	c;
+
 	try
 	{
-		this->_c = toChar();
-		std::cout << "'" << this->_c << "'" << std::endl;
+		c = toChar();
+		std::cout << "'" << c << "'" << std::endl;
 	}
 	catch(const std::exception& e)
 	{
@@ -141,10 +139,12 @@ void Convert::printChar()
 
 void Convert::printInt()
 {
-	std::cout << "int: ";
+	int		i;
+
 	try
 	{
-		std::cout << this->toInt() << std::endl;
+		i = toInt();
+		std::cout << i << std::endl;
 	}
 	catch(const std::exception& e)
 	{
@@ -154,38 +154,40 @@ void Convert::printInt()
 
 void Convert::printFloat()
 {
-	std::cout << "float: ";
+	float	f;
+
 	try
 	{
-		std::cout << std::fixed << std::setprecision(1) << this->toFloat() << "f" << std::endl;
+		f = this->toFloat();
+		if (f == static_cast<int>(f))
+			std::cout << f << ".0";
+		else
+			std::cout << f;
+		std::cout << "f" << std::endl;
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << "f\n";
+		std::cerr << e.what() << std::endl;
 	}
 }
 
 void Convert::printDouble()
 {
-	std::cout << "double: ";
+	double	d;
+
 	try
 	{
-		std::cout << std::fixed << std::setprecision(1) << this->toDouble() << std::endl;
+		d = this->toDouble();
+		if (d == static_cast<int>(d))
+			std::cout << d << ".0" << std::endl;
+		else
+			std::cout << d << std::endl;
 	}
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
 	}
 }
-
-void Convert::printAll()
-{
-	this->printChar();
-	this->printInt();
-	this->printFloat();
-	this->printDouble();
-}
-
 
 // Exception
 const char * Convert::NonDisplayableException::what() const throw()
@@ -198,12 +200,15 @@ const char * Convert::ImpossibleException::what() const throw()
 	return ("impossible");
 }
 
-const char * Convert::NotANumberException::what() const throw()
+std::ostream& operator<<(std::ostream &o, Convert &convert)
 {
-	return ("nan");
-}
-
-const char * Convert::InfinityException::what() const throw()
-{
-	return ("inf");
+	o << "char: ";
+	convert.printChar();
+	o << "int: ";
+	convert.printInt();
+	o << "float: ";
+	convert.printFloat();
+	o << "double: ";
+	convert.printDouble();
+	return o;
 }
