@@ -97,8 +97,7 @@ float	Convert::toFloat()
 			return (static_cast<float>(this->_str[0]));
 	}
 	if (!this->_str.length() \
-	|| (*this->_endptr && (strcmp(this->_endptr, "f") || strcmp(this->_endptr, "inf"))) \
-)
+	|| (*this->_endptr && (strcmp(this->_endptr, "f"))))
 		throw Convert::ImpossibleException();
 	return static_cast<float>(this->_d);
 }
