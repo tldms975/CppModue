@@ -60,13 +60,13 @@ char	Convert::toChar()
 		else
 			throw Convert::NonDisplayableException();
 	}
-	if (ft_isdemical(this->_d) || std::isprint(this->_d) == 0)
-		throw Convert::NonDisplayableException();
-	if (!this->_str.length() \
+	if (!this->_str.length() || ft_isdemical(this->_d)\
 	|| (*this->_endptr && strcmp(this->_endptr, "f")) \
-	|| this->_d < 1 || this->_d > 127 \
+	|| this->_d < 0 || this->_d > 127 \
 	|| ft_isnan(this->_d) || ft_isinf(this->_d))
 		throw Convert::ImpossibleException();
+	if (std::isprint(this->_d) == 0)
+		throw Convert::NonDisplayableException();
 	return static_cast<char>(this->_d);
 }
 
@@ -97,9 +97,8 @@ float	Convert::toFloat()
 			return (static_cast<float>(this->_str[0]));
 	}
 	if (!this->_str.length() \
-	|| (*this->_endptr && strcmp(this->_endptr, "f")) \
-	|| this->_d > std::numeric_limits<float>::max() \
-	|| this->_d < std::numeric_limits<float>::lowest())
+	|| (*this->_endptr && (strcmp(this->_endptr, "f") || strcmp(this->_endptr, "inf"))) \
+)
 		throw Convert::ImpossibleException();
 	return static_cast<float>(this->_d);
 }
@@ -113,9 +112,7 @@ double	Convert::toDouble()
 		else
 			return (static_cast<double>(this->_str[0]));
 	}
-	if (!this->_str.length() || (*this->_endptr && strcmp(this->_endptr, "f")) \
-	|| this->_d > std::numeric_limits<double>::max() \
-	|| this->_d < std::numeric_limits<double>::lowest())
+	if (!this->_str.length() || (*this->_endptr && strcmp(this->_endptr, "f")))
 		throw Convert::ImpossibleException();
 	return (this->_d);
 }
@@ -159,8 +156,11 @@ void Convert::printFloat()
 	try
 	{
 		f = this->toFloat();
+
 		if (f == static_cast<int>(f))
 			std::cout << f << ".0";
+		else if (ft_isinf(f))
+			std::cout << std::showpos << f;
 		else
 			std::cout << f;
 		std::cout << "f" << std::endl;
@@ -180,6 +180,8 @@ void Convert::printDouble()
 		d = this->toDouble();
 		if (d == static_cast<int>(d))
 			std::cout << d << ".0" << std::endl;
+		else if (ft_isinf(d))
+			std::cout << std::showpos << d << std::endl;
 		else
 			std::cout << d << std::endl;
 	}
