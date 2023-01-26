@@ -3,10 +3,12 @@
 #include "C.hpp"
 
 #include <iostream>
+#include <cstdlib> // random
+#include <ctime> // time
 
 Base * generate(void)
 {
-	int i = rand() % 3;
+	int i = std::rand() % 3;
 	if (i == 0)
 		return new A;
 	else if (i == 1)
@@ -60,10 +62,11 @@ void identify(Base & p)
 
 int	main()
 {
-	srand(time(NULL));
+	std::srand(std::time(NULL));
 	Base * base = generate();
 	identify(base);
 	identify(*base);
 	delete base;
+	// system("leaks ex02.exe");
 	return (0);
 }
