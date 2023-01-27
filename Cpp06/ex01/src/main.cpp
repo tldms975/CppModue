@@ -22,5 +22,6 @@ int	main(void)
 	std::cout << "data1: " << data1->data << "(" << &data1 << ")" << std::endl;
 	std::cout << "data2: " << data2->data << "(" << &data2 << ")" << std::endl;
 	delete data1;
+	// system("leaks ex01.exe");
 	return (0);
 }

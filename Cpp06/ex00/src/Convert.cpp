@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <cctype>
 #include <limits>
+#include <cstring>
 
 Convert::Convert()
 {
@@ -61,7 +62,7 @@ char	Convert::toChar()
 			throw Convert::NonDisplayableException();
 	}
 	if (!this->_str.length() || ft_isdemical(this->_d)\
-	|| (*this->_endptr && strcmp(this->_endptr, "f")) \
+	|| (*this->_endptr && std::strcmp(this->_endptr, "f")) \
 	|| this->_d < 0 || this->_d > 127 \
 	|| ft_isnan(this->_d) || ft_isinf(this->_d))
 		throw Convert::ImpossibleException();
@@ -79,7 +80,7 @@ int		Convert::toInt()
 		else
 			return (static_cast<int>(this->_str[0]));
 	}
-	if (!this->_str.length() || (*this->_endptr && strcmp(this->_endptr, "f")) \
+	if (!this->_str.length() || (*this->_endptr && std::strcmp(this->_endptr, "f")) \
 	|| this->_d > std::numeric_limits<int>::max() \
 	|| this->_d < std::numeric_limits<int>::min() \
 	|| ft_isnan(this->_d) || ft_isinf(this->_d))
@@ -97,7 +98,7 @@ float	Convert::toFloat()
 			return (static_cast<float>(this->_str[0]));
 	}
 	if (!this->_str.length() \
-	|| (*this->_endptr && (strcmp(this->_endptr, "f"))))
+	|| (*this->_endptr && std::strcmp(this->_endptr, "f")))
 		throw Convert::ImpossibleException();
 	return static_cast<float>(this->_d);
 }
@@ -111,7 +112,7 @@ double	Convert::toDouble()
 		else
 			return (static_cast<double>(this->_str[0]));
 	}
-	if (!this->_str.length() || (*this->_endptr && strcmp(this->_endptr, "f")))
+	if (!this->_str.length() || (*this->_endptr && std::strcmp(this->_endptr, "f")))
 		throw Convert::ImpossibleException();
 	return (this->_d);
 }
