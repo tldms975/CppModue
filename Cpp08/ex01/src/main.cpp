@@ -23,7 +23,7 @@ int main()
 	// std::cout << "----------------" << std::endl;
 	// try
 	// {
-	// 	Span sp = Span(100000);
+	// 	Span sp = Span(10000);
 	// 	sp.addNumberAutomatically();
 	// 	std::cout << sp.shortestSpan() << std::endl;
 	// 	std::cout << sp.longestSpan() << std::endl;
@@ -33,5 +33,7 @@ int main()
 	// {
 	// 	std::cerr << e.what() << '\n';
 	// }
+	
+
 	return (0);
 }
