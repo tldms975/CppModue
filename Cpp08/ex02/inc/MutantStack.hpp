@@ -67,13 +67,13 @@ typename MutantStack<T>::iterator MutantStack<T>::end()
 template <typename T>
 typename MutantStack<T>::const_iterator MutantStack<T>::begin() const
 {
-	return (this->c.begin());
+	return (MutantStack<T>::c.begin());
 }
 
 template <typename T>
 typename MutantStack<T>::const_iterator MutantStack<T>::end() const
 {
-	return (this->c.end());
+	return (MutantStack<T>::c.end());
 }
 
 template <typename T>
@@ -91,13 +91,13 @@ typename MutantStack<T>::reverse_iterator MutantStack<T>::rend()
 template <typename T>
 typename MutantStack<T>::const_reverse_iterator MutantStack<T>::rbegin() const
 {
-	return (this->c.rbegin());
+	return (MutantStack<T>::c.rbegin());
 }
 
 template <typename T>
 typename MutantStack<T>::const_reverse_iterator MutantStack<T>::rend() const
 {
-	return (this->c.rend());
+	return (MutantStack<T>::c.rend());
 }
 
 #endif
