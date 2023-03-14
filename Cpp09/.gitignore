@@ -1,0 +1,7 @@
+**/*.o
+**/*.d
+**/btc
+**/RPN
+**/PmergeMe
+../.vscode/
+**/build/
