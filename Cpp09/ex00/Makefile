@@ -1,12 +1,12 @@
 CXX		 = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
-DEPFLAGS = -MMD# -g -fsanitize=address
+DEPFLAGS = -MMD
 NAME	 = btc
 DIR_SRC = src
 DIR_INC = inc
 DIR_BUILD = build
 
-SRCS_ORG = main.cpp BitcoinExchange.cpp
+SRCS_ORG = main.cpp BitcoinExchange.cpp utils.cpp
 SRCS	= $(addprefix $(DIR_SRC)/, $(SRCS_ORG))
 OBJS	= $(patsubst %.cpp, $(DIR_BUILD)/%.o, $(SRCS_ORG))
 DEPS	= $(patsubst %.cpp, $(DIR_BUILD)/%.d, $(SRCS_ORG))
