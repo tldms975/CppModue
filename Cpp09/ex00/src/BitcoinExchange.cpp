@@ -15,12 +15,12 @@ BitcoinExchange::BitcoinExchange()
 	{
 		std::string	date = line.substr(0, line.find(','));
 		std::string	rate = line.substr(line.find(',') + 1);
-		size_t		pos;
-		float		rate_float = std::stof(rate.c_str(), &pos);
+		char		*endptr;
+		float		rate_float = std::strtod(rate.c_str(), &endptr);
 		try
 		{
 			if ((rate_float == 0.0f && rate != "0" && rate != "0.0") \
-			|| pos != rate.size())
+			|| *endptr)
 				throw NotAValidNumberException();
 			_data.insert(std::pair <std::string, float>(date, rate_float));
 		}
@@ -56,12 +56,12 @@ void	BitcoinExchange::run(std::string input)
 	{
 		std::string			date = input.substr(0, input.find('|') - 1);
 		std::string			value = input.substr(input.find('|') + 2);
-		size_t pos;
-		float value_float = std::stof(value, &pos);
+		char				*endptr;
+		float value_float = std::strtod(value.c_str(), &endptr);
 
 		// check if the entire input was converted to float
 		if ((value_float == 0.0f && value != "0" && value != "0.0") \
-		|| pos != value.size())
+		|| *endptr)
 			throw NotAValidNumberException();
 		else if (value_float < 0)
 			throw NegativeNumberException();
