@@ -15,7 +15,7 @@ class RPN
 		~RPN();
 		RPN & operator=(RPN const & o);
 
-		void	print();
+		void	printResult();
 };
 
 #endif

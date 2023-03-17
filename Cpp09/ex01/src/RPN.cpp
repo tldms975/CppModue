@@ -14,7 +14,14 @@ RPN::~RPN()
 
 RPN & RPN::operator=(RPN const & o)
 {
-	_str = o._str;
-	return *this;
+	if (this == &o)
+		return (*this);
+	this->_str = o._str;
+	return (*this);
+}
+
+void RPN::printResult()
+{
+	std::cout <<  << std::endl;
 }
 
