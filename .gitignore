@@ -1,2 +1,11 @@
 .DS_Store/
 .vscode/
+
+**/.vscode/
+**/build/
+
+**/*.o
+**/*.d
+**/btc
+**/RPN
+**/PmergeMe
