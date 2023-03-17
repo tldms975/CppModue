@@ -1,6 +1,5 @@
 #ifndef BITCOINEXCHANGE_HPP
 # define BITCOINEXCHANGE_HPP
-#include "BitcoinExchange.hpp"
 #include <map>
 #include <exception>
 
