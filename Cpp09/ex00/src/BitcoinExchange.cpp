@@ -40,13 +40,14 @@ BitcoinExchange::~BitcoinExchange()
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &ref)
 {
-	*this = ref;
+	this->_data = ref._data;
 }
 
 BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &ref)
 {
 	if (this == &ref)
 		return (*this);
+	_data = ref._data;
 	return (*this);
 }
 
