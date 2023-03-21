@@ -1,6 +1,6 @@
 CXX		 = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
-DEPFLAGS = -MMD# -g -fsanitize=address
+DEPFLAGS = -MMD#-g -fsanitize=address
 NAME	 = PmergeMe
 DIR_SRC = src
 DIR_INC = inc
