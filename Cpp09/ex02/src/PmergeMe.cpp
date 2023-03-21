@@ -15,6 +15,7 @@ void	PmergeMe::parseString(std::string str)
 			_lst.push_back(num);
 			_vec.push_back(num);
 			str.erase(0, i + 1);
+			i = 0;
 		}
 	}
 	if (str.size() > 0)
@@ -29,7 +30,7 @@ void	PmergeMe::parseString(std::string str)
 	_size = _lst.size();
 }
 
-void PmergeMe::parseArguements(int ac, char *av[]) 
+void PmergeMe::parseArguments(int ac, char *av[]) 
 {
 	for (int i = 1; i < ac; i++)
 	{
@@ -48,7 +49,7 @@ PmergeMe::PmergeMe(int ac, char *av[])
 	if (ac == 2)
 		parseString(av[1]);
 	else
-		parseArguements(ac, av);
+		parseArguments(ac, av);
 	if (_size < 2)
 		throw InvalidArgumentException();
 }
@@ -73,72 +74,176 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &o)
 	return (*this);
 }
 
-double PmergeMe::mergeInsertLst()
+// vector sort
+void	PmergeMe::mergeInsertVec(int left, int right)
 {
-	clock_t	start, end;
-	start = std::clock();
-	std::list<int>::iterator it = _lst.begin();
-	std::list<int>::iterator it2 = _lst.begin();
-	it2++;
-	while (it2 != _lst.end())
+	if (left < right)
 	{
-		if (*it > *it2)
+		int size = right - left + 1;
+
+		if (size < 20)
+			insertionSortVec(left, right);
+		else
 		{
-			int tmp = *it;
-			*it = *it2;
-			*it2 = tmp;
-			it = _lst.begin();
-			it2 = _lst.begin();
-			it2++;
+			int	mid = left + (right - left) / 2;
+			mergeInsertVec(left, mid);
+			mergeInsertVec(mid + 1, right);
+			mergeVector(left, mid, right);
+		}
+	}
+}
+
+void	PmergeMe::insertionSortVec(int left, int right)
+{
+	for (int i = left + 1; i <= right; i++)
+	{
+		int key = _vec[i];
+		int j = i - 1;
+		while (j >= left && _vec[j] > key)
+		{
+			_vec[j + 1] = _vec[j];
+			j--;
+		}
+		_vec[j + 1] = key;
+	}
+}
+
+void	PmergeMe::mergeVector(int left, int mid, int right)
+{
+	int		i = left;
+	int		j = mid + 1;
+	int		k = 0;
+	std::vector<int> tmp(right - left + 1);
+
+	while (i <= mid && j <= right)
+	{
+		if (_vec[i] <= _vec[j])
+			tmp[k++] = _vec[i++];
+		else
+			tmp[k++] = _vec[j++];
+	}
+	while (i <= mid)
+		tmp[k++] = _vec[i++];
+	while (j <= right)
+		tmp[k++] = _vec[j++];
+	for (int i = left, k = 0; i <= right; i++, k++)
+		_vec[i] = tmp[k];
+}
+
+// list sort
+void	PmergeMe::mergeInsertLst(std::list<int> &lst)
+{
+	if (lst.size() < 20)
+		insertionSortLst(lst);
+	else
+	{
+		std::list<int> left;
+		std::list<int> right;
+		int mid = lst.size() / 2;
+		std::list<int>::iterator it = lst.begin();
+		for (int i = 0; i < mid; i++)
+		{
+			left.push_back(*it);
+			it++;
+		}
+		for (int i = mid; i < (int)lst.size(); i++)
+		{
+			right.push_back(*it);
+			it++;
+		}
+		mergeInsertLst(left);
+		mergeInsertLst(right);
+		mergeList(lst, left, right);
+	}
+}
+
+void	PmergeMe::insertionSortLst(std::list<int> &lst)
+{
+	for (std::list<int>::iterator it = lst.begin(); it != lst.end(); it++)
+	{
+		std::list<int>::iterator it2 = it;
+		it2--;
+		while (it2 != lst.begin() && *it2 > *it)
+			it2--;
+		if (*it2 > *it)
+		{
+			lst.erase(it);
+			lst.push_front(*it);
 		}
 		else
 		{
-			it++;
+			lst.erase(it);
 			it2++;
+			lst.insert(it2, *it);
 		}
 	}
+}
+
+void	PmergeMe::mergeList(std::list<int> &lst, std::list<int> &left, std::list<int> &right)
+{
+	std::list<int>::iterator it = lst.begin();
+	std::list<int>::iterator itLeft = left.begin();
+	std::list<int>::iterator itRight = right.begin();
+	while (itLeft != left.end() && itRight != right.end())
+	{
+		if (*itLeft <= *itRight)
+		{
+			*it = *itLeft;
+			itLeft++;
+		}
+		else
+		{
+			*it = *itRight;
+			itRight++;
+		}
+		it++;
+	}
+	while (itLeft != left.end())
+	{
+		*it = *itLeft;
+		itLeft++;
+		it++;
+	}
+	while (itRight != right.end())
+	{
+		*it = *itRight;
+		itRight++;
+		it++;
+	}
+}
+
+// getTime
+double PmergeMe::getRunTimeLst()
+{
+	clock_t	start, end;
+	start = std::clock();
+	mergeInsertLst(_lst);
 	end = std::clock();
 	return ((double)(end - start) / CLOCKS_PER_SEC * 1000000);
 }
 
-double PmergeMe::mergeInsertVec()
+double PmergeMe::getRunTimeVec()
 {
 	clock_t	start, end;
 	start = std::clock();
-	std::vector<int>::iterator it = _vec.begin();
-	std::vector<int>::iterator it2 = _vec.begin();
-	it2++;
-	while (it2 != _vec.end())
-	{
-		if (*it > *it2)
-		{
-			int tmp = *it;
-			*it = *it2;
-			*it2 = tmp;
-			it = _vec.begin();
-			it2 = _vec.begin();
-			it2++;
-		}
-		else
-		{
-			it++;
-			it2++;
-		}
-	}
+	mergeInsertVec(0, _size - 1);
 	end = std::clock();
 	return ((double)(end - start) / CLOCKS_PER_SEC * 1000000);
 }
 
 void PmergeMe::printResult()
 {
-	double	timeLst, timeVec;
+	double	timeLst = 0, timeVec = 0;
 	std::cout << "Before:\t";
 	for (std::list<int>::iterator it = _lst.begin(); it != _lst.end(); it++)
 		std::cout << *it << " ";
 	std::cout << std::endl;
 
-	timeLst = mergeInsertLst();
-	timeVec = mergeInsertVec();
+	if (_size > 1)
+	{
+		timeLst = getRunTimeLst();
+		timeVec = getRunTimeVec();
+	}
 
 	std::cout << "After:\t";
 	for (std::vector<int>::iterator it = _vec.begin(); it != _vec.end(); it++)
